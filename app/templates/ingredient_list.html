@@ -1,0 +1,122 @@
+{% extends 'base.html' %}
+
+{% block title %}Ингредиенты{% endblock %}
+
+{% block content %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/ingred.css' %}">
+<style>
+    /* Custom styles */
+    .ingredient-title {
+        font-size: 30px;
+        font-weight: bold;
+        font-family: 'Candara';
+    }
+
+    .ingredient-table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0 10px; /* Add spacing between rows (adjust the value as needed) */
+        margin-bottom: 20px;
+        font-family: 'Inter', sans-serif;
+    }
+
+    .ingredient-table th,
+    .ingredient-table td {
+        padding: 10px;
+        text-align: center;
+        border: 1px solid rgba(0, 0, 0, 0);
+        border-radius: 10px;
+        font-size: 19px;
+    }
+
+    .ingredient-table thead {
+        background-color: #436430;
+        color: #fff;
+    }
+
+    .ingredient-table th {
+        font-weight: bold;
+    }
+    .ingredient-table tbody tr {
+        background-color: #ffffff;
+    }
+    .ingredient-table tbody tr:hover {
+        background-color: #436430;
+        color: #fff;
+    }
+    .save-button {
+        margin-top: 20px;
+        text-align: center;
+    }
+    button {
+        background-color: #436430;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 4px;
+        font-size: 18px;
+        cursor: pointer;
+        margin-top: 10px;
+        margin-bottom: 30px;
+}
+    .content {
+        margin: 20px auto;
+        max-width: 100%;
+        text-align: center;
+    }
+    
+</style>
+
+
+<h3 class="ingredient-title">Список ингредиентов</h3>
+<link rel="shortcut icon" href="{% static 'css/icon.png' %}" type="image/png">
+<table class="ingredient-table">
+    <thead>
+        <tr>
+            <th>Ингредиент</th>
+            <th>Блюда, в которых используется</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for ingredient in ingredients %}
+            <tr>
+                <td> {{ ingredient.name }} </td>
+                <td>
+                    {% for order in ingredient.order_set.all %}
+                        {{ order.recipe.name }} (порядок - {{ forloop.counter }}, {{ order.amount }} {{ order.name.unit }})
+                        {% if not forloop.last %}, {% endif %}
+                    {% empty %}
+                        Нет блюд
+                    {% endfor %}
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>       
+</table>
+<div class="save-button">
+    <button onclick="exportToJson('dishes.json')">Сохранить в JSON</button>
+</div>
+<script>
+    function exportToJson(filename) {
+        var ingredients = Array.from(document.querySelectorAll('.ingredient-table tbody tr')).map(function(row) {
+            var cols = row.querySelectorAll('td');
+            return {
+                ingredient: cols[0].innerText,
+                dishes: cols[1].innerText
+            };
+        });
+
+        var jsonData = JSON.stringify(ingredients);
+
+        var element = document.createElement('a');
+        element.setAttribute('href', 'data:text/json;charset=utf-8,' + encodeURIComponent(jsonData));
+        element.setAttribute('download', filename);
+        element.style.display = 'none';
+        document.body.appendChild(element);
+        element.click();
+        document.body.removeChild(element);
+    }
+</script>
+
+{% endblock %}

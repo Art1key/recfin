@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<link rel="shortcut icon" href="{% static 'css/icon.png' %}" type="image/png">
+<style>
+  form {
+    font-size: 20px;
+    font-family: 'Candara';
+  }
+  
+  form input,
+  form select,
+  form textarea {
+    font-size: 17px;
+  }
+  
+  form p {
+    font-size: 22px;
+    font-family: 'Candara';
+  }
+  button {
+    background-color: #436430;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    font-size: 18px;
+    cursor: pointer;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+</style>
+  <h1>Добавление нового ингредиента</h1>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Добавить</button>
+  </form>
+{% endblock %}

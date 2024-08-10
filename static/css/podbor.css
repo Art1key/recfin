@@ -1,0 +1,120 @@
+body {
+  font-family: Arial, sans-serif;
+  width: 100%;
+}
+
+h3 {
+  font-size: 30px;
+  font-weight: bold;
+  font-family: 'Candara';
+}
+
+table.search-results {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 10px;
+  margin-bottom: 20px;
+  font-family: 'Inter', sans-serif;
+}
+
+thead {
+  background-color: #436430;
+  color: #fff;
+}
+
+th,
+td {
+  padding: 10px;
+  text-align: center;
+  border: 1px solid rgba(0, 0, 0, 0);
+  border-radius: 10px;
+}
+
+th.table-header {
+  font-weight: bold;
+}
+
+tbody tr {
+  background-color: #ffffff;
+}
+
+tbody tr:hover {
+  background-color: #436430;
+}
+
+button {
+  background-color: #436430;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  font-size: 18px;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+.content {
+  margin: 20px auto;
+  width: 100%;
+  text-align: center;
+}
+.form-row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-content: baseline;
+  justify-content: center;
+  width: 100%;
+}
+.form-row label {
+  margin-bottom: 30px; /* Увеличьте значение отступа по вашему предпочтению */
+  font-size: 15px;
+  font-weight: bold;
+  font-family: 'Candara';
+}
+
+.search-field label {
+  margin-bottom: 40px; /* Увеличьте значение отступа по вашему предпочтению */
+  font-size: 18px;
+  font-weight: bold;
+  font-family: 'Candara';
+}
+
+.search-field {
+  margin-bottom: 20px;
+  margin-right: 20px;
+}
+
+h2 {
+  font-size: 30px;
+  font-weight: bold;
+  color: #436430;
+  font-family: 'Candara'
+}
+h1 {
+  text-align: center;
+  font-family: 'Candara';
+  color: #000000;
+}
+.logo {
+  display: block;
+  margin-top: 15px;
+  margin: 0 auto;
+  width: 250px;
+  height: auto;
+  background-color:rgba(255, 255, 255, 0.5);;
+  border-radius: 50px;
+  margin-bottom: 10px;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5); /* Добавляем белую тень */
+}
+.search-form {
+  font-size: 18px;
+}
+form input[type="text"],
+form select {
+  font-size: 17px;
+}

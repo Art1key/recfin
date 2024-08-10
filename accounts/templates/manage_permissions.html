@@ -1,0 +1,117 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Управление правами{% endblock %}
+<link rel="shortcut icon" href="{% static 'css/icon.png' %}" type="image/png">
+{% block content %}
+<style>
+    .manage-permissions-container {
+        display: flex;
+        justify-content: center;
+        font-family: 'Candara';
+        font-size: 22px;
+        font-style: bold;
+        margin-bottom: 10px;
+    }
+
+    .users-column,
+    .forms-column {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
+    }
+
+    .user-label,
+    .permissions-form {
+        margin-bottom: 10px;
+    }
+
+    .permissions-form select {
+        margin-left: 10px;
+        margin-bottom: 10px;
+        font-size: 18px; /* Increased font size */
+    }
+
+    .permissions-form button {
+        margin-top: 10px;
+        font-size: 18px; /* Increased font size */
+    }
+
+    button {
+        background-color: #436430;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 4px;
+        font-size: 18px; /* Increased font size */
+        cursor: pointer;
+        margin-top: 20px;
+        margin-bottom: 10px;
+        font-family: 'Candara';
+    }
+
+    h3 {
+        font-size: 30px;
+        font-weight: bold;
+        font-family: 'Candara';
+        margin-bottom: 20px;
+    }
+    .add-dish-button {
+        font-size: 20px;
+        font-weight: bold;
+        color: #436430;
+        font-family: 'Candara';
+        margin-top: 10px;
+        margin-bottom: 30px;
+        }
+</style>
+<h3 style="text-align: center;">Управление правами</h3>
+<div class="manage-permissions-container">
+    <div class="users-column">
+        {% for user_id, permission in permissions.items %}
+            <div class="user-label">
+                <label for="permission_{{ user_id }}">{{ permission.user.username }}</label>
+            </div>
+        {% endfor %}
+    </div>
+    <div class="forms-column">
+        <form method="post" class="permissions-form">
+            {% csrf_token %}
+            {% for user_id, permission in permissions.items %}
+                <div>
+                    <select name="permission_{{ user_id }}" id="permission_{{ user_id }}">
+                        {% if permission.user.username != 'admin' %}
+                        <option value="admin" {% if permission.is_admin %}selected{% endif %}>Администратор</option>
+                        <option value="user" {% if not permission.is_admin %}selected{% endif %}>Пользователь</option>
+                        {% else %}
+                        <option value="admin" {% if permission.is_admin %}selected{% endif %}>Администратор</option>
+                        {% endif %}
+                    </select>
+                </div>
+            {% endfor %}
+            <button type="submit">Сохранить</button><br>  
+            <a href="{% url 'add_user' %}" class="add-dish-button">➕Добавить</a>
+        </form>
+    </div>
+</div>
+
+<script>
+    function updatePermissions(userId, permissionType, isChecked) {
+        // Perform AJAX request to update the user's permissions
+        // You can use JavaScript libraries like Axios or jQuery.ajax for the AJAX request
+
+        // Example using Axios
+        axios.post('/update-permissions/', {
+            user_id: userId,
+            permission_type: permissionType,
+            is_checked: isChecked
+        })
+        .then(function(response) {
+            // Handle the success response if needed
+        })
+        .catch(function(error) {
+            // Handle the error response if needed
+        });
+    }
+</script>
+{% endblock %}

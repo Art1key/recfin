@@ -1,0 +1,127 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Блюда{% endblock %}
+
+{% block content %}
+<link rel="shortcut icon" href="{% static 'css/icon.png' %}" type="image/png">
+<style>.logo {
+    margin-top: 0; /* Убираем отступ сверху */
+  }
+  </style>
+<link rel="stylesheet" href="{% static 'css/bluda.css' %}">
+    <h3 style="text-align: center;">Список блюд</h3>
+
+    <!-- Search Form -->
+    <form method="GET" style=" display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;">
+        <div>
+            <a href="{% url 'add_dish' %}" class="add-dish-button" style="margin-bottom: 20px;">➕ Добавить блюдо</a>
+        </div>
+    </form>
+
+    <table style="margin-top: 20px;">
+        <thead>
+            <tr>
+                <th style="padding: 10px; text-align: center;">Название блюда</th>
+                <th style="padding: 10px; text-align: center;">Сезон</th>
+                <th style="padding: 10px; text-align: center;">Тип</th>
+                <th style="padding: 10px; text-align: center;">Количество порций / вес одной порции</th>
+                <th style="padding: 10px; text-align: center;">Калорийность</th>
+                <th style="padding: 10px; text-align: center;">Время приготовления</th>
+                <th style="padding: 10px; text-align: center;">Стоимость</th>
+                <th style="padding: 10px; text-align: center;">Ингредиенты<a href="{% url 'add_order' %}" class="add-dish-button">🔼</a></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if dishes %}
+                {% for dish in dishes %}
+                <tr>
+                    <td style="padding: 10px; text-align: center;">{{ dish.name }}<a class="smile" href="{% url 'bluds_edit' dish_id=dish.id %}">📝</a><a class="smile" href="{% url 'delete' dish_id=dish.id %}">❌</a></td>
+                    <td style="padding: 10px; text-align: center;">{{ dish.season }}</td>
+                    <td style="padding: 10px; text-align: center;">{{ dish.type }}</td>
+                    <td style="padding: 10px; text-align: center;">{{ dish.order_set.count }} / {{ dish.weight }}</td>
+                    <td style="padding: 10px; text-align: center;">{{ dish.calory }}</td>
+                    <td style="padding: 10px; text-align: center;">{{ dish.timehours }}</td>
+                    <td style="padding: 10px; text-align: center;">{{ dish.price_dish }}</td>
+                    <td style="padding: 10px; text-align: center;">
+                        {% for order in dish.order_set.all %}
+                            {{ order.name.name }} (порядок - {{ order.order }}, {{ order.amount }} {{ order.name.unit }}<a href="{% url 'delete_order' order_id=order.id %}">❌</a><a class="smile" href="{% url 'edit_order' order_id=order.id %}">📝</a>)
+                            {% if not forloop.last %}, {% endif %}
+                        {% empty %}
+                            Нет ингредиентов
+                        {% endfor %}
+                    </td>
+                </tr>
+                
+                
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td colspan="4" style="text-align: center;">Нет результатов</td>
+                </tr>
+            {% endif %}
+        </tbody>
+    </table>
+
+    <button onclick="exportToJson('dishes.json')">Сохранить в JSON</button>
+
+    <script>
+        function exportToJson(filename) {
+            var dishes = Array.from(document.querySelectorAll('tbody tr')).map(function(row) {
+                var cols = row.querySelectorAll('td');
+                return {
+                    name: cols[0].innerText,
+                    season: cols[1].innerText,
+                    servings: cols[2].innerText,
+                    ingredients: cols[3].innerText
+                };
+            });
+    
+            var json = JSON.stringify(dishes, null, 2);
+    
+            var element = document.createElement('a');
+            element.setAttribute('href', 'data:application/json;charset=utf-8,' + encodeURIComponent(json));
+            element.setAttribute('download', filename);
+            element.style.display = 'none';
+            document.body.appendChild(element);
+            element.click();
+            document.body.removeChild(element);
+        }
+    
+            var searchForm = document.getElementById('searchForm');
+            var searchResults = document.getElementById('searchResults');
+
+            searchForm.addEventListener('submit', function(event) {
+                event.preventDefault(); // Отменяем отправку формы
+
+                var searchQuery = this.search_query.value.trim().toLowerCase();
+                var dishes = document.querySelectorAll('tbody tr');
+
+                // Очищаем предыдущие результаты
+                searchResults.innerHTML = '';
+
+                // Проходим по каждому блюду и проверяем соответствие поисковому запросу
+                dishes.forEach(function(dish) {
+                    var name = dish.querySelector('td:nth-child(1)').innerText.toLowerCase();
+                    var season = dish.querySelector('td:nth-child(2)').innerText.toLowerCase();
+                    var type = dish.querySelector('td:nth-child(3)').innerText.toLowerCase();
+
+                    if (name.includes(searchQuery) || season.includes(searchQuery) || type.includes(searchQuery)) {
+                        // Блюдо соответствует запросу, добавляем его в результаты поиска
+                        searchResults.appendChild(dish.cloneNode(true));
+                    }
+                });
+
+                if (searchResults.childElementCount === 0) {
+                    // Если нет результатов, показываем сообщение
+                    var noResultsMessage = document.createElement('p');
+                    noResultsMessage.textContent = 'Нет результатов';
+                    searchResults.appendChild(noResultsMessage);
+                }
+            });
+    </script>
+
+{% endblock %}

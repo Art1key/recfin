@@ -1,0 +1,92 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}Блюда{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/restaurant.css' %}">
+    <link rel="shortcut icon" href="{% static 'css/icon.png' %}" type="image/png">
+</head>
+<body>
+    <div class="header">
+        <a href="{% url 'home' %}">
+            <img src="{% static 'css/logo2.png' %}" alt="Logo" class="logo">
+        </a>
+    </div>
+    <div class="navigation">
+        <ul class="ul1">
+            {% if user.is_superuser %}
+            <li><a href="{% url 'bluds_list_admin' %}">Блюда</a></li>
+            {% else %}
+            <li><a href="{% url 'bluds_list' %}">Блюда</a></li>
+            {% endif %}
+            <li><a href="{% url 'search_dishes' %}">Подобрать блюдо</a></li>
+            <li><a href="{% url 'create_order' %}">Создать заказ</a></li>
+            {% if user.is_superuser %}
+            <li><a href="{% url 'display_graphs' %}">Мониторинг</a></li>
+            <li><a href="{% url 'ingredient_list_admin' %}">Ингредиенты</a></li>
+            {% else %}
+            <li><a href="{% url 'ingredient_list' %}">Ингредиенты</a></li>
+            {% endif %}
+        </ul>
+        {% if user.is_authenticated %}
+            {% if user.is_superuser %}
+                <ul class="ul2">
+                    <li><a href="/admin/">Администрирование</a></li>
+                    <li><a href="/manage-permissions/">Управление</a></li>
+                    <li><a href="/logout/">Выйти</a></li>
+                </ul>
+            {% else %}
+                <ul class="ul2">
+                    <li><a href="/logout/">Выйти</a></li>
+                </ul>
+            {% endif %}
+        {% else %}
+            <ul class="ul2">
+                <li><a href="/register/">Зарегистрироваться</a></li>
+                <li><a href="/login/">Войти</a></li>
+            </ul>
+        {% endif %}
+    </div>
+    
+    
+    <div class="content">
+        {% block content %}{% endblock %}
+    </div> 
+    <div class="scroll-to-top" onclick="scrollToTop()">&#8593;</div> 
+</body>
+    <script>
+        window.onscroll = function() {myFunction()};
+    
+        // Get the navbar
+        var navigation = document.querySelector(".navigation");
+        
+        // Get the offset position of the navbar
+        var sticky = navigation.offsetTop;
+        
+        // Add the sticky class to the navbar when you reach its scroll position. Remove "sticky" when you leave the scroll position
+        function myFunction() {
+          if (window.pageYOffset >= sticky) {
+            navigation.classList.add("sticky")
+          } else {
+            navigation.classList.remove("sticky");
+          }
+        }
+    // Scroll to top button
+    var scrollToTopBtn = document.querySelector('.scroll-to-top');
+
+    window.addEventListener('scroll', function () {
+        if (window.pageYOffset > 100) {
+            scrollToTopBtn.classList.add('show');
+        } else {
+            scrollToTopBtn.classList.remove('show');
+        }
+    });
+
+    function scrollToTop() {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    }
+</script>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Virtual Orders</title>
+</head>
+<body>
+    <h1>Virtual Orders</h1>
+    {% for virtual_order in virtual_orders %}
+        <h2>{{ virtual_order.name }}</h2>
+        <ul>
+            {% for dish in virtual_order.dishes.all %}
+                <li>
+                    <strong>Name:</strong> {{ dish.name }}, 
+                    <strong>Price:</strong> {{ dish.price_dish }}, 
+                    <strong>Quantity:</strong> {{ dish.amount }},
+                    <strong>Weight:</strong> {{ dish.weight }},
+                    <strong>Calories:</strong> {{ dish.calory }},
+                    <strong>Cooking Time:</strong> {{ dish.time }},
+                    <strong>Type:</strong> {{ dish.type }},
+                    <strong>Season:</strong> {{ dish.season }}
+                </li>
+            {% endfor %}
+        </ul>
+    {% endfor %}
+</body>
+</html>

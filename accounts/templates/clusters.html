@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Кластеризация{% endblock %}
+<!-- clusters.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Clusters</title>
+</head>
+<body>
+    <h1>Dishes and Ingredients Clusters</h1>
+    <h2>Dishes</h2>
+    <ul>
+        {% for dish in dishes %}
+            <li>{{ dish.name }} - Cluster: {{ dish.cluster }}</li>
+        {% endfor %}
+    </ul>
+    <h2>Ingredients</h2>
+    <ul>
+        {% for ingredient in ingredients %}
+            <li>{{ ingredient.name }} - Cluster: {{ ingredient.cluster }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

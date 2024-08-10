@@ -1,0 +1,27 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <link rel="shortcut icon" href="{% static 'css/icon.png' %}" type="image/png">
+<head>
+    <title>Авторизация</title>
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+</head>
+<body>
+    <h2>Авторизация</h2>
+    <!-- Ваше содержимое формы входа -->
+    <form method="POST">
+        {% csrf_token %}
+        {% if messages %}
+            {% for message in messages %}
+                <p>{{ message }}</p>
+            {% endfor %}
+        {% endif %}
+        <!-- Поля для ввода логина и пароля на новой строке -->
+        <input type="text" name="username" placeholder="Username"><br>
+        <input type="password" name="password" placeholder="Password"><br>
+        <button type="submit">Войти</button>
+        <p >Нет аккаунта?   <a class="register-button" href="{% url 'register' %}" style="text-decoration: none">Зарегистрироваться</a></p>
+    </form>
+
+</body>
+</html>

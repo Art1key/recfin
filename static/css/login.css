@@ -1,0 +1,80 @@
+/* Стили для формы входа */
+body {
+  background-image: url("/static/css/login.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  font-family: 'Candara';
+  margin: 0;
+  padding: 0;
+}
+
+h2 {
+  font-size: 30px;
+  text-align: center;
+  color: #ffffff;
+  font-family: 'Candara';
+  margin-bottom: 10px;
+}
+
+form {
+  max-width: 300px;
+  margin: 0 auto;
+  font-family: 'Candara';
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Применяем стили к полям ввода логина и пароля */
+input[type="text"],
+input[type="password"],
+#id_username,
+#id_password {
+  width: 93%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  font-family: 'Candara';
+}
+
+button {
+  width: 100%;
+  padding: 10px;
+  background-color: #4c7932;
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 20px;
+  font-family: 'Candara';
+  font-weight: bold; /* Добавленный стиль */
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+p {
+  text-align: center; /* Добавленный стиль */
+  color: #000000;
+  font-family: 'Candara';
+  font-size: 17px;
+  margin-bottom: 0px;
+}
+
+a {
+  color: #15b637;
+  font-weight: bold; /* Добавленный стиль */
+  font-family: 'Candara';
+  margin-bottom: 15px;
+  margin-left: 5px;
+  font-size: 19px;
+}
+
+a:hover {
+  font-weight: bold; /* Добавленный стиль */
+  font-family: 'Candara';
+}
+

@@ -1,0 +1,203 @@
+/* restaurant-style.css */
+
+/* Общие стили */
+body {
+  font-family: 'Helvetica', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-image: url("/static/css/background.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+h2 {
+  text-align: center;
+  color: #436430;
+  font-family: 'Helvetica', sans-serif;
+}
+a {
+  color: #4CAF50;
+  text-decoration: none;
+  font-family: 'Helvetica', sans-serif;
+}
+
+a:hover {
+  color: #4CAF50;
+}
+
+h1 {
+  font-size: 30px;
+  font-weight: bold;
+  font-family: 'Candara'
+}
+/* restaurant-nav-style.css */
+
+/* Стили для навигационной панели */
+
+/* restaurant-nav-style.css */
+
+/* Стили для навигационной панели */
+
+.navigation {
+  display: flex;
+  background-color: #436430;
+  padding: 20px 0;
+  text-align: center;
+  border-radius: 5px;
+  position: -webkit-sticky;
+  position: sticky;
+}
+
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+.navigation .ul1,
+.navigation .ul2 {
+  flex: 1;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: right;
+}
+
+.navigation .ul1 {
+  justify-content: flex-start;
+  list-style-type: none;
+}
+
+.navigation .ul2 {
+  justify-content: flex-end;
+  list-style-type: none;
+}
+
+.navigation li {
+  margin-right: 10px;
+  list-style-type: none;
+}
+
+.navigation li a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 20px; /* Increased font size */
+  font-weight: bold;
+  padding: 10px 20px;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.navigation li a:hover {
+  background-color: #4CAF50;
+}
+
+.navigation .ul2 li:last-child {
+  margin-right: 0;
+}
+
+.scroll-to-top {
+  position: fixed;
+  right: 26px;
+  bottom: 26px;
+  width: 52px;
+  height: 52px;
+  background-color: #436430;
+  color: #fff;
+  text-align: center;
+  line-height: 50px;
+  font-size: 31.2px;
+  border-radius: 65%;
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.scroll-to-top.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+button {
+  background-color: #4CAF50;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+/* Дополнительные стили и изменения по вкусу */
+/* Добавьте свои дополнительные стили и изменения в этот файл */
+
+/* Стили для основного контента */
+.content {
+  padding: 20px;;
+  width: 100%;
+  margin: 20px auto;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  font-size: 20px;
+  text-align: center;
+}
+.popular-dishes {
+  text-align: center;
+  margin-top: 30px;
+  margin-bottom: 20px;
+}
+
+.popular-dishes h3 {
+  font-size: 30px;
+  font-weight: bold;
+  color: #436430;
+  font-family: 'Candara', sans-serif;
+
+}
+
+.dish-card {
+  display: inline-block;
+  width: 550px;
+  height: 350px;
+  margin: 20px;
+  font-size: 20px;
+  font-weight: bold;
+  margin-right: 40px; /* Уменьшите это значение */
+  margin-left: 40px; /* Уменьшите это значение */
+}
+
+.dish-card img {
+  width: 550px;
+  height: 350px;
+  border-radius: 30px;
+  margin-top: 10px;
+}
+
+
+.dish-card p {
+  font-size: 22px;
+  font-family: 'Candara', sans-serif;
+}
+
+p {
+  font-size: 22px;
+  font-weight: bold;
+}
+.logo {
+  display: block;
+  margin: 0 auto;
+  width: 250px;
+  height: auto;
+  background-color:rgba(255, 255, 255, 0.5);;
+  border-radius: 50px;
+  margin-bottom: 10px;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5); /* Добавляем белую тень */
+}

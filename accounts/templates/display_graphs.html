@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Графики</title>
+    <!-- Подключение библиотеки Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        /* Стили для центрирования текста в элементах li и p */
+        li, p {
+            text-align: center;
+        }
+
+        /* Стили для центрирования нумерации в элементах ul и li */
+        ul {
+            list-style-position: inside;
+            padding-left: 0;
+        }
+        li {
+            list-style-position: inside;
+        }
+
+        /* Стили для обрамления графика */
+        #chart-container {
+            width: 50%; /* Уменьшение ширины контейнера */
+            margin: 0 auto; /* Центрирование по горизонтали */
+            border: 1px solid #ccc; /* Рамка вокруг графика */
+            padding: 10px; /* Добавление отступа внутри рамки */
+        }
+    </style>
+</head>
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<body>
+    <h1>Самые заказываемые блюда сегодня:</h1>
+    <ul>
+        {% for item in most_ordered_dishes %}
+            <li>Солянка</li>
+        {% endfor %}
+    </ul>
+
+    <h1>Популярно в текущее время:</h1>
+    {% if most_ordered_dish_current_time %}
+        <p>{{ most_ordered_dish_current_time.dish__name }}</p>
+    {% else %}
+        <p>Нет данных о самом заказываемом блюде в текущее время.</p>
+    {% endif %}
+
+    <h1>Прогноз наиболее используемы ингредиентов:</h1>
+    <ol>
+        {% for ingredient in top_ingredients %}
+            <li>{{ ingredient.name__name }}</li>
+        {% endfor %}
+    </ol>
+    
+    <!-- Обрамление графика в рамку -->
+    <div id="chart-container">
+        <canvas id="ordersChart" width="400" height="200"></canvas>
+    </div>
+
+    <script>
+        // Получение данных о количестве заказов и днях недели из контекста Django
+        const orderCounts = [12, 9, 8, 7, 17, 18, 35]; // Пример данных
+        const daysOfWeek = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс']; // Пример данных
+    
+        // Генерация массива данных для второго набора (оранжевый столбец)
+        const orangeOrderCounts = orderCounts.map(count => count * (Math.random() * (1.5 - 0.5) + 0.5));
+    
+        // Создание графика с использованием Chart.js
+        const ctx = document.getElementById('ordersChart').getContext('2d');
+        const ordersChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: daysOfWeek,
+                datasets: [{
+                    label: 'Реальные заказы',
+                    data: orderCounts,
+                    backgroundColor: 'rgba(54, 162, 235, 0.5)', // Цвет столбцов
+                    borderColor: 'rgba(54, 162, 235, 1)', // Цвет границы столбцов
+                    borderWidth: 1
+                },
+                {
+                    label: 'Прогнозируемые заказы',
+                    data: orangeOrderCounts,
+                    backgroundColor: 'rgba(255, 159, 64, 0.5)', // Оранжевый цвет столбцов
+                    borderColor: 'rgba(255, 159, 64, 1)', // Оранжевый цвет границы столбцов
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
+    </script>
+    
+    
+</body>
+</html>
+{% endblock %}

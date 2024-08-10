@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Детали блюда{% endblock %}
+
+{% block content %}
+<link rel="shortcut icon" href="{% static 'css/icon.png' %}" type="image/png">
+  <h3>Детали блюда</h3>
+  <table>
+    <tr>
+      <th>Название</th>
+      <td>{{ dish.name }}</td>
+    </tr>
+    <tr>
+      <th>Сезон</th>
+      <td>{{ dish.season }}</td>
+    </tr>
+    <tr>
+      <th>Количество порций</th>
+      <td>{{ dish.serving_quantity }}</td>
+    </tr>
+    <tr>
+      <th>Вес одной порции</th>
+      <td>{{ dish.serving_weight }}</td>
+    </tr>
+    <tr>
+      <th>Ингредиенты</th>
+      <td>
+        <ul>
+          {% for ingredient in dish.ingredients.all %}
+            <li>{{ ingredient }}</li>
+          {% empty %}
+            <li>Нет ингредиентов</li>
+          {% endfor %}
+        </ul>
+      </td>
+    </tr>
+  </table>
+{% endblock %}
